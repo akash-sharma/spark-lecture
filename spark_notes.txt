@@ -1,0 +1,71 @@
+https://spark.apache.org/docs/latest/rdd-programming-guide.html
+https://spark.apache.org/examples.html
+
+https://spark.apache.org/docs/latest/sql-programming-guide.html
+https://spark.apache.org/docs/latest/streaming-programming-guide.html
+https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html
+https://spark.apache.org/docs/latest/running-on-yarn.html
+https://spark.apache.org/docs/latest/job-scheduling.html
+
+
+
+https://youtu.be/65lHphtrfo0
+
+https://youtu.be/v7kQPMTIppI
+
+https://youtu.be/agqn_-KN4hU
+
+
+***https://github.com/apache/spark/tree/master/examples/src/main/java/org/apache/spark/examples
+
+Spark Sql
+
+There are several ways to interact with Spark SQL including SQL and the Dataset API.
+One use of Spark SQL is to execute SQL queries. 
+Spark SQL can also be used to read data from an existing Hive installation
+When running SQL from within another programming language the results will be returned as a Dataset/DataFrame
+
+
+Dataset
+A Dataset is a distributed collection of data
+benefits of RDDs (strong typing, ability to use powerful lambda functions)
+benefits of Spark SQL’s optimized execution engine
+functional transformations (map, flatMap, filter, etc.) can be applied on Dataset
+
+
+DataFrame
+An RDD with a schema is DataFrame.
+A DataFrame is a Dataset organized into named columns. 
+It is conceptually equivalent to a table in a relational database but with richer optimizations under the hood
+a DataFrame is represented by a Dataset of Rows. eg in java Dataset<Row>
+
+
+SparkSession spark = SparkSession
+  .builder()
+  .appName("Java Spark SQL basic example")
+  .config("spark.some.config.option", "some-value")
+  .getOrCreate();
+
+Dataset<Row> df = spark.read().json("examples/src/main/resources/people.json");
+
+df.show();
+
+df.printSchema();
+
+df.select("name").show();
+
+df.select(col("name"), col("age").plus(1)).show();
+
+df.filter(col("age").gt(21)).show();
+
+
+
+Spark Streaming
+Spark Streaming provides a high-level abstraction called discretized stream or DStream.
+
+DStreams can be created either from input data streams from sources such as Kafka, 
+Flume, and Kinesis, or by applying high-level operations on other DStreams. 
+a DStream is represented by a continuous series of RDDs,
+
+transformation on a DStream will result in a DStream
+
